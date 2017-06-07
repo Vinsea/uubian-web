@@ -1,15 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+
+// 首页
+const index = r => require.ensure([], () => r(require('../views/Index.vue')), 'index')
+
+import otherRouters from './module/others'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '/', redirect: '/index'
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: index,
+      meta: {
+        name: '首页'
+      }
     }
   ]
 })
+router.addRoutes(otherRouters)
+export default router
